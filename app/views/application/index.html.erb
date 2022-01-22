@@ -1,0 +1,45 @@
+<style>
+  .window-seat{
+    background-color: green !important;
+    color: #fff;
+  }
+
+  .middle-seat{
+    background-color: red !important;
+    color: #fff;
+  }
+
+  .aisle-seat{
+    background-color: blue !important;
+    color: #fff;
+  }
+</style>
+
+<div class="container">
+  <h1>Airplane Seating Algorithm</h1>
+  <hr>
+  <div class="row">
+    <% @filtered_data.each do |fd| %>
+      <div class="col-lg-3">
+      <% 
+        rows = fd.last.pluck(:row).uniq.size
+        columns = fd.last.pluck(:column).uniq.size
+      %>
+      <table class="table table-bordered">
+        <tbody>
+        <% for i in 1..rows do %>
+          <tr>
+            <% for j in 1..columns do %>
+               <% item = fd.last.map{|fdata| fdata if fdata[:row] == i && fdata[:column] == j}.compact %>
+              <td class="<%= item.first[:seat_class]%>">      
+                <%= item.first[:value] %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </div>
+    <% end %>
+  </div>
+</div>

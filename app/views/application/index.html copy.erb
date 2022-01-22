@@ -1,0 +1,92 @@
+<style>
+  .window-seat{
+    background-color: green !important;
+    color: #fff;
+  }
+
+  .middle-seat{
+    background-color: red !important;
+    color: #fff;
+  }
+
+  .aisle-seat{
+    background-color: blue !important;
+    color: #fff;
+  }
+</style>
+
+<div class="container">
+  <h1>Airplaine Seating Algorithm</h1>
+  <hr>
+  <div class="row">
+    <% seat_counter = 0 %>
+    <% @seats.each do |seat| %>
+      <div class="col-lg-3">
+        <%
+          columns = seat.first
+          rows = seat.last
+
+          first_section_order_seat = ['window-seat', 'middle-seat', 'aisle-seat']
+          last_section_order_seat = first_section_order_seat.reverse
+          any_order_seat =  first_section_order_seat.shuffle
+
+          seats_data = []
+          for i in 1..rows do
+             seat_order_index = 0
+             for j in 1..columns do
+                 if seat_order_index > 2
+                    seat_order_index = 0
+                 end
+
+                 seat_class = if seat_counter == 0
+                    first_section_order_seat[seat_order_index]
+                  elsif seat_counter == (@seats.size - 1)
+                    last_section_order_seat[seat_order_index]
+                  else
+                    any_order_seat[seat_order_index]
+                  end
+
+                  seat_order_index += 1
+
+             end
+          end
+          seat_counter += 1
+        %>
+
+
+        
+        <table class="table table-bordered">
+          <tbody>
+            <% for i in 1..rows do %>
+              <tr>
+                <% 
+                  seat_order_index = 0
+                %>
+                <% for j in 1..columns do %>
+                  <% 
+                    if seat_order_index > 2
+                      seat_order_index = 0
+                    end
+
+                    seat_class = if seat_counter == 0
+                      first_section_order_seat[seat_order_index]
+                    elsif seat_counter == (@seats.size - 1)
+                      last_section_order_seat[seat_order_index]
+                    else
+                      any_order_seat[seat_order_index]
+                    end
+                  %>
+                  <td class="<%= seat_class %>">
+                    <%= i %> & <%= j %>
+                  </td>
+                  <% seat_order_index += 1 %>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% seat_counter += 1 %>
+      </div>
+    <% end %>
+  </div>
+</div>
