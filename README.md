@@ -27,3 +27,6 @@ Write a program that helps seat audiences in a flight based on the following inp
 **Example**
 
 Given - A 2D array that represents the columns and rows - [[3,2], [4,3], [2,3], [3,4]]
+
+**DEMO**
+https://www.loom.com/share/0f170dd904604fb6a14bea96384b0485 
